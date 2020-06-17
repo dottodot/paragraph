@@ -349,6 +349,9 @@ class Paragraph {
      */
     _toggleTune(tune) {
         this.data.alignment = tune;
+        this.settings.forEach((tune) => {
+            this.wrapper.classList.toggle(tune.name, !!this.data[tune.name]);
+        });
     }
 
     /**
