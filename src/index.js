@@ -90,12 +90,16 @@ class Paragraph {
      */
     constructor({ data, config, api }) {
         const { ALIGNMENTS, DEFAULT_ALIGNMENT } = Paragraph;
-
+        const align =
+            (Object.values(ALIGNMENTS).includes(data.alignment) &&
+                data.alignment) ||
+            config.defaultAlignment ||
+            DEFAULT_ALIGNMENT;
         this.api = api;
 
         this._CSS = {
             block: this.api.styles.block,
-            wrapper: "ce-paragraph",
+            wrapper: `ce-paragraph ${align}`,
             settingsWrapper: "cdx-paragraph-settings",
             settingsButton: this.api.styles.settingsButton,
             settingsButtonActive: this.api.styles.settingsButtonActive,
@@ -116,11 +120,7 @@ class Paragraph {
 
         this.data = {
             text: data.text || "",
-            alignment:
-                (Object.values(ALIGNMENTS).includes(data.alignment) &&
-                    data.alignment) ||
-                config.defaultAlignment ||
-                DEFAULT_ALIGNMENT,
+            alignment: align,
         };
     }
 
