@@ -150,8 +150,12 @@ class Paragraph {
     drawView() {
         let div = document.createElement("DIV");
 
-        div.classList.add(this._CSS.wrapper, this._CSS.block);
-        div.classList.add(this._CSS.wrapper, this.data.alignment);
+        div.classList.add(
+            this._CSS.wrapper,
+            this._CSS.block,
+            this.data.alignment
+        );
+
         div.contentEditable = true;
         div.dataset.placeholder = this.api.i18n.t(this._placeholder);
 
