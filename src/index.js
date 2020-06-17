@@ -350,10 +350,9 @@ class Paragraph {
     _toggleTune(tune) {
         this.data.alignment = tune;
         this.settings.forEach((tune) => {
-            console.log(tune.name, !!this.data.alignment);
-
-            this._element.classList.toggle(tune.name, !!this.data.alignment);
+            this._element.classList.remove(tune.name);
         });
+        this._element.classList.add(this.data.alignment);
     }
 
     /**
