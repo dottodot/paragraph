@@ -90,11 +90,17 @@ class Paragraph {
      */
     constructor({ data, config, api }) {
         const { ALIGNMENTS, DEFAULT_ALIGNMENT } = Paragraph;
+        const align =
+            (Object.values(ALIGNMENTS).includes(data.alignment) &&
+                data.alignment) ||
+            config.defaultAlignment ||
+            DEFAULT_ALIGNMENT;
         this.api = api;
 
         this._CSS = {
             block: this.api.styles.block,
             wrapper: "ce-paragraph",
+            alignment: align,
             settingsWrapper: "cdx-paragraph-settings",
             settingsButton: this.api.styles.settingsButton,
             settingsButtonActive: this.api.styles.settingsButtonActive,
@@ -115,11 +121,7 @@ class Paragraph {
 
         this.data = {
             text: data.text || "",
-            alignment:
-                (Object.values(ALIGNMENTS).includes(data.alignment) &&
-                    data.alignment) ||
-                config.defaultAlignment ||
-                DEFAULT_ALIGNMENT,
+            alignment: align,
         };
     }
 
@@ -149,13 +151,17 @@ class Paragraph {
     drawView() {
         let div = document.createElement("DIV");
 
-        div.classList.add(this._CSS.wrapper, this._CSS.block);
+        div.classList.add(
+            this._CSS.wrapper,
+            this._CSS.block,
+            this._CSS.alignment
+        );
 
         div.contentEditable = true;
         div.dataset.placeholder = this.api.i18n.t(this._placeholder);
 
         div.addEventListener("keyup", this.onKeyUp);
-        this._element.classList.add(this.data.alignment);
+
         return div;
     }
 
