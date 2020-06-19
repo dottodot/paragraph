@@ -90,7 +90,6 @@ class Paragraph {
      */
     constructor({ data, config, api }) {
         const { ALIGNMENTS, DEFAULT_ALIGNMENT } = Paragraph;
-        mitsu1;
         this.api = api;
 
         this._CSS = {
